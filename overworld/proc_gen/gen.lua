@@ -1,8 +1,10 @@
 local tiles = require('overworld.proc_gen.tiles');
+local interactables_data = require('overworld.data.interactables_data');
+local enemy_data = require('overworld.data.enemy_data');
 local tile_width = 32;
 local tile_height = 32;
-local width = 50;
-local height = 50;
+local width = 100;
+local height = 100;
 local half_width = math.floor(width / 2);
 local half_height = math.floor(height / 2);
 local default_tiles = {
@@ -165,8 +167,37 @@ local function fillNature(maps)
     end
 end
 
-local function fillEnemies()
+local function getRandomEnemy(dist)
+    return math.random(1, 3);
+end
 
+local function getRandomInteractable(dist)
+    return (math.max(1, math.random(1,5 + #interactables_data) - 5));
+end
+
+local function fillEnemiesAndInteractables(maps, seen, x, y)
+    local probability;
+    local distance;
+    local count = 0;
+
+    if seen[posToIndex(x, y)] or not maps.collidable[posToIndex(x, y)] or x < 1 or x > width or y < 1 or y > height then return (0) end
+    seen[posToIndex(x, y)] = true;
+    count = count + fillEnemiesAndInteractables(maps, seen, x + 1, y);
+    count = count + fillEnemiesAndInteractables(maps, seen, x - 1, y);
+    count = count + fillEnemiesAndInteractables(maps, seen, x, y + 1);
+    count = count + fillEnemiesAndInteractables(maps, seen, x, y - 1);
+    distance = calculateDistance(x, y, half_width, half_height, 1, 1)
+    probability = 100 * math.max(0, math.abs(distance) / (half_width - 3));
+    if math.random(1, 100) <= probability - 10 and count == 0 then
+        if math.random(1, 100) <= 100 - (distance / half_width) * 20 then
+            maps.enemies[posToIndex(x, y)] = getRandomEnemy(probability);
+            print(probability);
+        else
+            maps.interactables[posToIndex(x, y)] = getRandomInteractable(probability);
+        end
+        return (1);
+    end
+    return (0);
 end
 
 return function(seed)
@@ -175,7 +206,9 @@ return function(seed)
         floor = {},
         decorations = {},
         overworld = {},
-        collidable = {}
+        collidable = {},
+        enemies = {},
+        interactables = {}
     };
     for _ = 1, width * height do
         table.insert(maps.floor, default_tiles.floor);
@@ -183,7 +216,7 @@ return function(seed)
     fillCollidable(maps.collidable);
     fillWater(maps.collidable, maps.floor, 1, 1);
     fillNature(maps);
-    fillEnemies(maps);
+    fillEnemiesAndInteractables(maps, {}, half_width, half_height);
     return {
         width = width,
         height = height,

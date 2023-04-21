@@ -5,6 +5,23 @@ return {
         move_speed = 1,
         power = 10,
         resistance = 10,
+        overworld_anims = {
+            {
+                name = 'idle',
+                sprite = 'ow_enemies',
+                quads = 'ow_enemies',
+                fps = 8,
+                frames = {1},
+                default = true,
+                config = {
+                    yoyo = true,
+                    ox = 0.5,
+                    oy = 1,
+                    width = 32,
+                    height = 32
+                }
+            }
+        },
         anims = {
             {
                 name = 'idle',

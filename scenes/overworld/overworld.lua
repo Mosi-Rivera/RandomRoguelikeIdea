@@ -1,4 +1,5 @@
 local proc_gen = require('overworld.proc_gen.gen');
+local enemy_data = require('overworld.data.enemy_data');
 local scene = {};
 local map;
 
@@ -15,9 +16,11 @@ function scene.update(dt)
 end
 
 function scene.draw()
-    love.graphics.scale(.8, .8)
+    love.graphics.scale(.35, .35)
     local floor = map.data.floor;
     local decorations = map.data.decorations;
+    local enemies = map.data.enemies;
+    local interactables = map.data.interactables;
     local width = map.width;
     local tile_width, tile_height = map.tile_width, map.tile_height;
     local tile;
@@ -39,6 +42,24 @@ function scene.draw()
                     SPRITE_MANAGER.getQuads('tileset1')[tile],
                     (x - 1) * tile_width,
                     (y - 1) * tile_height - 8
+                );
+            end
+            tile = enemies[(y - 1) * width + x];
+            if tile then
+                love.graphics.draw(
+                    SPRITE_MANAGER.getSprite('ow_enemies'),
+                    SPRITE_MANAGER.getQuads('ow_enemies')[tile],
+                    (x - 1) * tile_width,
+                    (y - 1) * tile_height - 12
+                );
+            end
+            tile = interactables[(y - 1) * width + x];
+            if tile then
+                love.graphics.draw(
+                    SPRITE_MANAGER.getSprite('ow_interactables'),
+                    SPRITE_MANAGER.getQuads('ow_interactables')[tile],
+                    (x - 1) * tile_width,
+                    (y - 1) * tile_height - 12
                 );
             end
         end

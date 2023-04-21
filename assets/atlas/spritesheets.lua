@@ -35,4 +35,16 @@ return ({
         width = 32,
         height = 32
     },
+    {
+        name = 'ow_enemies',
+        src = 'assets/sprites/overworld/characters/enemies.png',
+        width = 32,
+        height = 32
+    },
+    {
+        name = 'ow_interactables',
+        src = 'assets/sprites/overworld/interactables/interactables.png',
+        width = 32,
+        height = 32
+    }
 });
