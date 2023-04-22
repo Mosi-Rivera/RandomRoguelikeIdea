@@ -46,5 +46,17 @@ return ({
         src = 'assets/sprites/overworld/interactables/interactables.png',
         width = 32,
         height = 32
+    },
+    {
+        name = 'ow_bosses',
+        src = 'assets/sprites/overworld/characters/bosses.png',
+        width = 32,
+        height = 32
+    },
+    {
+        name = 'ow_mini_bosses',
+        src = 'assets/sprites/overworld/characters/mini_bosses.png',
+        width = 32,
+        height = 32
     }
 });

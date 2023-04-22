@@ -1,12 +1,15 @@
 local tiles = require('overworld.proc_gen.tiles');
 local interactables_data = require('overworld.data.interactables_data');
+local boss_data = require('overworld.data.boss_data');
 local enemy_data = require('overworld.data.enemy_data');
 local tile_width = 32;
 local tile_height = 32;
-local width = 100;
-local height = 100;
+local width = 50;
+local height = 50;
 local half_width = math.floor(width / 2);
 local half_height = math.floor(height / 2);
+local did_add_boss = false;
+local boss;
 local default_tiles = {
     collidable = 0,
     floor = tiles.ground_1,
@@ -168,6 +171,14 @@ local function fillNature(maps)
 end
 
 local function getRandomEnemy(dist)
+    if dist > 70 and math.random(1, 100) <= 25 then
+        if not did_add_boss then
+            did_add_boss = true;
+            return 9900 + boss;
+        else
+            return 900 + math.random(1, #boss_data[boss].mini_bosses);
+        end
+    end
     return math.random(1, 3);
 end
 
@@ -191,7 +202,6 @@ local function fillEnemiesAndInteractables(maps, seen, x, y)
     if math.random(1, 100) <= probability - 10 and count == 0 then
         if math.random(1, 100) <= 100 - (distance / half_width) * 20 then
             maps.enemies[posToIndex(x, y)] = getRandomEnemy(probability);
-            print(probability);
         else
             maps.interactables[posToIndex(x, y)] = getRandomInteractable(probability);
         end
@@ -202,6 +212,8 @@ end
 
 return function(seed)
     math.randomseed(seed);
+    did_add_boss = false;
+    boss = math.random(1, #boss_data);
     local maps = {
         floor = {},
         decorations = {},

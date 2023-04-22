@@ -16,7 +16,7 @@ function scene.update(dt)
 end
 
 function scene.draw()
-    love.graphics.scale(.35, .35)
+    love.graphics.scale(.75, .75)
     local floor = map.data.floor;
     local decorations = map.data.decorations;
     local enemies = map.data.enemies;
@@ -46,12 +46,28 @@ function scene.draw()
             end
             tile = enemies[(y - 1) * width + x];
             if tile then
-                love.graphics.draw(
-                    SPRITE_MANAGER.getSprite('ow_enemies'),
-                    SPRITE_MANAGER.getQuads('ow_enemies')[tile],
-                    (x - 1) * tile_width,
-                    (y - 1) * tile_height - 12
-                );
+                if tile > 9900 then
+                    love.graphics.draw(
+                        SPRITE_MANAGER.getSprite('ow_bosses'),
+                        SPRITE_MANAGER.getQuads('ow_bosses')[tile % 100],
+                        (x - 1) * tile_width,
+                        (y - 1) * tile_height - 12
+                    );
+                elseif tile > 900 then
+                    love.graphics.draw(
+                        SPRITE_MANAGER.getSprite('ow_mini_bosses'),
+                        SPRITE_MANAGER.getQuads('ow_mini_bosses')[tile % 100],
+                        (x - 1) * tile_width,
+                        (y - 1) * tile_height - 12
+                    );
+                else
+                    love.graphics.draw(
+                        SPRITE_MANAGER.getSprite('ow_enemies'),
+                        SPRITE_MANAGER.getQuads('ow_enemies')[tile],
+                        (x - 1) * tile_width,
+                        (y - 1) * tile_height - 12
+                    );
+                end
             end
             tile = interactables[(y - 1) * width + x];
             if tile then
