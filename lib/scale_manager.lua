@@ -112,4 +112,14 @@ function scale_manager.drawQuad(sprite, quad, x, y)
     );
 end
 
+function scale_manager.drawRect(mode, x, y, w, h)
+    love.graphics.rectangle(
+        mode,
+        x,
+        y,
+        w,
+        h
+    );
+end
+
 return (scale_manager);

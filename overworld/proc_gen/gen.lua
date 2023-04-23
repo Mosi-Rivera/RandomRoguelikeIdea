@@ -1,7 +1,6 @@
 local tiles = require('overworld.proc_gen.tiles');
 local interactables_data = require('overworld.data.interactables_data');
 local boss_data = require('overworld.data.boss_data');
-local enemy_data = require('overworld.data.enemy_data');
 local tile_width = 32;
 local tile_height = 32;
 local width = 50;
@@ -234,6 +233,7 @@ return function(seed)
         height = height,
         tile_width = tile_width,
         tile_height = tile_height,
-        data = maps
+        data = maps,
+        spritesheet = boss_data[boss].spritesheets[math.random(1, #boss_data[boss].spritesheets)]
     }
 end

@@ -1,10 +1,10 @@
 local proc_gen = require('overworld.proc_gen.gen');
 local enemy_data = require('overworld.data.enemy_data');
 local scene = {};
-local map;
+local overworld_manager = require('overworld.overworld_manager');
 
 function scene.onenter()
-    map = proc_gen(RUN_INTERFACE.get().seed);
+    overworld_manager.init(RUN_INTERFACE.get().seed);
 end
 
 function scene.onexit()
@@ -12,78 +12,17 @@ function scene.onexit()
 end
 
 function scene.update(dt)
-
+    overworld_manager.update(dt);
 end
 
 function scene.draw()
-    love.graphics.scale(.75, .75)
-    local floor = map.data.floor;
-    local decorations = map.data.decorations;
-    local enemies = map.data.enemies;
-    local interactables = map.data.interactables;
-    local width = map.width;
-    local tile_width, tile_height = map.tile_width, map.tile_height;
-    local tile;
-    for y = 1, map.height do
-        for x = 1, map.width do
-            tile = floor[(y - 1) * width + x];
-            if tile ~= 0 then
-                love.graphics.draw(
-                    SPRITE_MANAGER.getSprite('tileset1'),
-                    SPRITE_MANAGER.getQuads('tileset1')[tile],
-                    (x - 1) * tile_width,
-                    (y - 1) * tile_height
-                );
-            end
-            tile = decorations[(y - 1) * width + x];
-            if tile then
-                love.graphics.draw(
-                    SPRITE_MANAGER.getSprite('tileset1'),
-                    SPRITE_MANAGER.getQuads('tileset1')[tile],
-                    (x - 1) * tile_width,
-                    (y - 1) * tile_height - 8
-                );
-            end
-            tile = enemies[(y - 1) * width + x];
-            if tile then
-                if tile > 9900 then
-                    love.graphics.draw(
-                        SPRITE_MANAGER.getSprite('ow_bosses'),
-                        SPRITE_MANAGER.getQuads('ow_bosses')[tile % 100],
-                        (x - 1) * tile_width,
-                        (y - 1) * tile_height - 12
-                    );
-                elseif tile > 900 then
-                    love.graphics.draw(
-                        SPRITE_MANAGER.getSprite('ow_mini_bosses'),
-                        SPRITE_MANAGER.getQuads('ow_mini_bosses')[tile % 100],
-                        (x - 1) * tile_width,
-                        (y - 1) * tile_height - 12
-                    );
-                else
-                    love.graphics.draw(
-                        SPRITE_MANAGER.getSprite('ow_enemies'),
-                        SPRITE_MANAGER.getQuads('ow_enemies')[tile],
-                        (x - 1) * tile_width,
-                        (y - 1) * tile_height - 12
-                    );
-                end
-            end
-            tile = interactables[(y - 1) * width + x];
-            if tile then
-                love.graphics.draw(
-                    SPRITE_MANAGER.getSprite('ow_interactables'),
-                    SPRITE_MANAGER.getQuads('ow_interactables')[tile],
-                    (x - 1) * tile_width,
-                    (y - 1) * tile_height - 12
-                );
-            end
-        end
-    end
+    -- SCALE_MANAGER.start();
+    overworld_manager.draw();
+    -- SCALE_MANAGER.finish();
 end
 
 function scene.dispose()
-    map = nil;
+    overworld_manager.dispose();
 end
 
 return (scene);
