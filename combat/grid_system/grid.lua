@@ -1,5 +1,5 @@
 local cell = require('combat.grid_system.cell');
-local drawable = require('combat.characters.drawable');
+local drawable = require('lib.drawable');
 local character = require('combat.characters.character');
 local cell_w, cell_h = cell.getDimensions();
 local width = 6;

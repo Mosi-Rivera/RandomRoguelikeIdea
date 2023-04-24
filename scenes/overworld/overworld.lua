@@ -16,9 +16,9 @@ function scene.update(dt)
 end
 
 function scene.draw()
-    -- SCALE_MANAGER.start();
+    SCALE_MANAGER.start();
     overworld_manager.draw();
-    -- SCALE_MANAGER.finish();
+    SCALE_MANAGER.finish();
 end
 
 function scene.dispose()

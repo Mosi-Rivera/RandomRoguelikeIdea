@@ -51,7 +51,13 @@ function interface.cameraPositionToTileCoords(camera)
     local y = (camera.y - half_height) / camera.tile_height + 1;
     local fx = math.floor(x);
     local fy = math.floor(y);
-    return fx, fy, (x - fx) * camera.tile_width, (y - fy) * camera.tile_height;
+    return fx, fy, math.floor((x - fx) * camera.tile_width), math.floor((y - fy) * camera.tile_height);
+end
+
+function interface.positionToTileCoords(camera, x, y)
+    x = x / camera.tile_width + 1;
+    y = y / camera.tile_height + 1;
+    return math.floor(x), math.floor(y);
 end
 
 return (interface);

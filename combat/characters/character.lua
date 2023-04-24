@@ -1,12 +1,16 @@
 local interface = {};
-local drawable = require('combat.characters.drawable');
+local drawable = require('lib.drawable');
 local animation = require('lib.animation');
 
 function interface.new(data)
     local anim_data;
+    local _default;
     local anims = {};
     for i = 1, #data.anims do
         anim_data = data.anims[i];
+        if anim_data.default then
+            _default = anim_data.name;
+        end
         anims[anim_data.name] = animation.new(
             anim_data.sprite,
             anim_data.quads,
@@ -33,7 +37,7 @@ function interface.new(data)
             move_offset_y = 0
         },
         anims,
-        'idle'
+        _default
     ));
 end
 
