@@ -1,3 +1,4 @@
+KEY_BINDINGS    = require('config.bindings');
 KEYBOARD_MANAGER = require('lib.keyboard_manager');
 SCENE_MANAGER = require('lib.scene_manager');
 SPRITE_MANAGER = require('lib.sprite_manager');

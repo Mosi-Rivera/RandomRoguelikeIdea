@@ -47,17 +47,21 @@ function interface.update(camera, dt)
 end
 
 function interface.cameraPositionToTileCoords(camera)
-    local x = (camera.x - half_width) / camera.tile_width + 1;
-    local y = (camera.y - half_height) / camera.tile_height + 1;
-    local fx = math.floor(x);
-    local fy = math.floor(y);
-    return fx, fy, math.floor((x - fx) * camera.tile_width), math.floor((y - fy) * camera.tile_height);
+    return interface.positionToTileCoords(camera, camera.x - half_width, camera.y - half_height);
 end
 
 function interface.positionToTileCoords(camera, x, y)
     x = x / camera.tile_width + 1;
     y = y / camera.tile_height + 1;
-    return math.floor(x), math.floor(y);
+    local fx = math.floor(x);
+    local fy = math.floor(y);
+    return fx, fy, math.floor((x - fx) * camera.tile_width), math.floor((y - fy) * camera.tile_height);
+end
+
+function interface.tileCoordsToPosition(camera, x, y, ox, oy)
+    ox = ox or 0;
+    oy = oy or 0;
+    return x * camera.tile_width + ox, y * camera.tile_height + oy;
 end
 
 return (interface);

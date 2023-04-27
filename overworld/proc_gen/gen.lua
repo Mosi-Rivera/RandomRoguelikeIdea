@@ -1,10 +1,13 @@
 local tiles = require('overworld.proc_gen.tiles');
 local interactables_data = require('overworld.data.interactables_data');
 local boss_data = require('overworld.data.boss_data');
+local character_interface = require('overworld.character.character');
+local enemy_data = require('overworld.data.enemy_data');
+local mini_boss_data = require('overworld.data.mini_boss_data');
 local tile_width = 32;
 local tile_height = 32;
-local width = 50;
-local height = 50;
+local width = 18;
+local height = 18;
 local half_width = math.floor(width / 2);
 local half_height = math.floor(height / 2);
 local did_add_boss = false;
@@ -173,16 +176,20 @@ local function getRandomEnemy(dist)
     if dist > 70 and math.random(1, 100) <= 25 then
         if not did_add_boss then
             did_add_boss = true;
-            return 9900 + boss;
+            return (character_interface.new(boss_data[boss], 0, 0));
         else
-            return 900 + math.random(1, #boss_data[boss].mini_bosses);
+            return (
+                character_interface.new(
+                    mini_boss_data[boss_data[boss].mini_bosses[math.random(1, #boss_data[boss].mini_bosses)]], 0, 0
+                )
+            );
         end
     end
-    return math.random(1, 3);
+    return (character_interface.new(enemy_data[boss_data[boss].enemies[math.random(1, #boss_data[boss].enemies)]], 0, 0));
 end
 
 local function getRandomInteractable(dist)
-    return (math.max(1, math.random(1,5 + #interactables_data) - 5));
+    return character_interface.new(interactables_data[math.max(1, math.random(1,5 + #interactables_data) - 5)], 0, 0);
 end
 
 local function fillEnemiesAndInteractables(maps, seen, x, y)

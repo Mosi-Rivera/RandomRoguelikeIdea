@@ -1,10 +1,6 @@
 return ({
     {
         name = "boss1",
-        stats = {},
-        enemies = {1, 2, 3},
-        mini_bosses = {1},
-        spritesheets = {'tileset1'},
         hp = 10,
         cast_speed = 0.5,
         move_speed = 1,
@@ -13,8 +9,8 @@ return ({
         overworld_anims = {
             {
                 name = 'idle',
-                sprite = 'ow_bosses',
-                quads = 'ow_bosses',
+                sprite = 'ow_mini_bosses',
+                quads = 'ow_mini_bosses',
                 fps = 8,
                 frames = {1},
                 default = true,
@@ -30,8 +26,8 @@ return ({
         anims = {
             {
                 name = 'idle',
-                sprite = 'bosses',
-                quads = 'bosses',
+                sprite = 'characters',
+                quads = 'characters',
                 fps = 8,
                 frames = {1},
                 default = true,
@@ -47,10 +43,6 @@ return ({
     },
     {
         name = "boss2",
-        stats = {},
-        enemies = {1, 2, 3},
-        mini_bosses = {2},
-        spritesheets = {'tileset1'},
         hp = 10,
         cast_speed = 0.5,
         move_speed = 1,
@@ -59,8 +51,8 @@ return ({
         overworld_anims = {
             {
                 name = 'idle',
-                sprite = 'ow_bosses',
-                quads = 'ow_bosses',
+                sprite = 'ow_mini_bosses',
+                quads = 'ow_mini_bosses',
                 fps = 8,
                 frames = {2},
                 default = true,
@@ -76,8 +68,8 @@ return ({
         anims = {
             {
                 name = 'idle',
-                sprite = 'bosses',
-                quads = 'bosses',
+                sprite = 'characters',
+                quads = 'characters',
                 fps = 8,
                 frames = {2},
                 default = true,
@@ -93,10 +85,6 @@ return ({
     },
     {
         name = "boss3",
-        stats = {},
-        enemies = {1, 2, 3},
-        mini_bosses = {3},
-        spritesheets = {'tileset1'},
         hp = 10,
         cast_speed = 0.5,
         move_speed = 1,
@@ -105,8 +93,8 @@ return ({
         overworld_anims = {
             {
                 name = 'idle',
-                sprite = 'ow_bosses',
-                quads = 'ow_bosses',
+                sprite = 'ow_mini_bosses',
+                quads = 'ow_mini_bosses',
                 fps = 8,
                 frames = {3},
                 default = true,
@@ -122,8 +110,8 @@ return ({
         anims = {
             {
                 name = 'idle',
-                sprite = 'bosses',
-                quads = 'bosses',
+                sprite = 'characters',
+                quads = 'characters',
                 fps = 8,
                 frames = {3},
                 default = true,

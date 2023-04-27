@@ -3,8 +3,7 @@ local character_data = require('overworld.data.character_data');
 local drawable_interface = require('lib.drawable');
 local animation = require('lib.animation');
 
-function interface.init(id, sx, sy)
-    local data = character_data[id];
+function interface.new(data, sx, sy)
     local _default;
     local anim_data;
     local anims = {};
@@ -24,10 +23,14 @@ function interface.init(id, sx, sy)
     return drawable_interface.makeDrawable({
         x = sx,
         y = sy,
-        remainder_x = 0,
-        remainder_y = 0,
-        speed_x = 0,
-        speed_y = 0
+        move_buffer = 0,
+        move_direction = 0,
+        reverse_move = false,
+        moving_horizontal = false,
+        move_ox = 0,
+        move_oy = 0,
+        moving = false,
+        move_timer = 0
     }, anims, _default);
 end
 

@@ -8,4 +8,12 @@ function interface.approach(a, b, c)
     end
 end
 
+function interface.sign(n)
+    if n < 1 then 
+        return (-1);
+    else
+        return (1);
+    end
+end
+
 return (interface);
