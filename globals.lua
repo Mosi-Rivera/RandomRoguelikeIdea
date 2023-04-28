@@ -7,6 +7,7 @@ RUN_INTERFACE = require('save.run');
 COMBAT_SYSTEM = require('combat.combat_system.combat_system');
 MOVE_MANAGER = require('combat.combat_system.move_manager');
 ATTACK_MANAGER = require('combat.combat_system.attack_manager');
+OVERWORLD_MANAGER = require('overworld.overworld_manager');
 
 G_WHITE_COLOR = {1, 1, 1, 1};
 

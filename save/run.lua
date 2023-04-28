@@ -19,7 +19,10 @@ function run_interface.load()
         run_data = {
             seed = seed,
             cards = cards,
-            character = 1
+            character = 1,
+            level = 1,
+            dead_enemies = {},
+            used_interactables = {}
         }
     end
 end
