@@ -1,5 +1,5 @@
 local interface = {};
-local timer_name = 'timer';
+local timer_name = 'percentage';
 
 function interface.new(src, time, param_table)
     local shader = love.graphics.newShader(love.filesystem.read(src));
@@ -20,7 +20,7 @@ end
 
 function interface.startDraw(shader)
     love.graphics.setShader(shader.shader);
-    shader.shader:send(timer_name, shader.timer);
+    shader.shader:send(timer_name, shader.timer / shader.max_time);
 end
 
 function interface.finishDraw()
